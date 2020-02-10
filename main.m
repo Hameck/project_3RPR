@@ -38,12 +38,21 @@ v_3 = (B_3-A_3)/norm(B_3-A_3);
 
 % paralel Jacobian
 
-A = [(E*v_1)',-(E*v_1)'*E*(P-B_1); ...
-     (E*v_2)',-(E*v_2)'*E*(P-B_2); ...
-     (E*v_3)',-(E*v_3)'*E*(P-B_3)]
+A = [(v_1)',-(v_1)'*E*(P-B_1); ...
+     (v_2)',-(v_2)'*E*(P-B_2); ...
+     (v_3)',-(v_3)'*E*(P-B_3)]
+     
+if(det(A) == 0)
+  disp('Paralel singularity');
+end
 
 % serial Jacobian 
-B = diag([rho_1, rho_2, rho_3])
+B = eye(3)
+
+% condition
+
+J = pinv(A)*B;
+cond(J)
 
 % draw
 
