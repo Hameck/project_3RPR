@@ -14,13 +14,13 @@ A_3 = [D*1/2 D*sqrt(3)/2]';
 
 x = 7;
 y = 4;
-phi = 3*pi/4;
+phi = pi/4;
 
 % inverse kinematics
 
-B_1 = [x-d*sin(phi+pi/2) y+d*cos(phi+pi/2)]';
-B_2 = [x-d*sin(phi-5*pi/6) y+d*cos(phi-5*pi/6)]';
-B_3 = [x-d*sin(phi-pi/6) y+d*cos(phi-pi/6)]';
+B_1 = [x+d*cos(phi-5*pi/6) y+d*sin(phi-5*pi/6)]';
+B_2 = [x+d*cos(phi-pi/6) y+d*sin(phi-pi/6)]';
+B_3 = [x+d*cos(phi+pi/2) y+d*sin(phi+pi/2)]';
 
 P = [x y]';
 
