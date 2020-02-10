@@ -18,9 +18,9 @@ phi = pi/4;
 
 % inverse kinematics
 
-B_1 = [x-d*sin(phi-2*pi/3) y+d*cos(phi-2*pi/3)]';
-B_2 = [x-d*sin(phi+2*pi/3) y+d*cos(phi+2*pi/3)]';
-B_3 = [x-d*sin(phi) y+d*cos(phi)]';
+B_1 = [x-d*sin(phi+pi/2) y+d*cos(phi+pi/2)]';
+B_2 = [x-d*sin(phi-5*pi/6) y+d*cos(phi-5*pi/6)]';
+B_3 = [x-d*sin(phi-pi/6) y+d*cos(phi-pi/6)]';
 
 % output = [rho_1 rho_2 rho_3]
 
