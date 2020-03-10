@@ -33,11 +33,13 @@ rho_3 = norm(B_3 - A_3)
 % draw
 
 figure(1);
+hold on;
 % plot([A_1(1) A_2(1) A_3(1) A_1(1)],[A_1(2) A_2(2) A_3(2) A_1(2)], "-o", "linewidth", 3); hold on;
-plot([A_1(1) B_1(1)],[A_1(2) B_1(2)], "-o", "linewidth", 3); hold on;
-plot([A_2(1) B_2(1)],[A_2(2) B_2(2)], "-o", "linewidth", 3); hold on;
-plot([A_3(1) B_3(1)],[A_3(2) B_3(2)], "-o", "linewidth", 3); hold on;
+plot([A_1(1) B_1(1)],[A_1(2) B_1(2)], "-o", "linewidth", 3); 
+plot([A_2(1) B_2(1)],[A_2(2) B_2(2)], "-o", "linewidth", 3);
+plot([A_3(1) B_3(1)],[A_3(2) B_3(2)], "-o", "linewidth", 3);
 plot([B_1(1) B_2(1) B_3(1) B_1(1)],[B_1(2) B_2(2) B_3(2) B_1(2)], "-o", "linewidth", 3);
-plot([P(1)],[P(2)], "-o", "linewidth", 3); hold on;
+plot([P(1)],[P(2)], "-o", "linewidth", 3);
 axis equal;
 grid on;
+hold off;

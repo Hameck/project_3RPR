@@ -5,8 +5,8 @@ function [G Geq]=nonlcong(x)
     % Points d'interet
     pointsList = [];
     for i=-(taille/2):(taille/n):(taille/2)
-        for j=-(taille/2):(taille/n):(taille/2)
-            pointsList = [pointsList, [i+(x(1)*0.5);j+x(1)*sqrt(3)/4]];
+        for j=-(taille/2):(taille/n):+(taille/2)
+            pointsList = [pointsList, [i+(x(1)*0.5);j+x(1)*sqrt(3)/2]];
         end
     end
     
@@ -53,13 +53,12 @@ function [G Geq]=nonlcong(x)
 
         A = [(v_1)',-(v_1)'*E*(P-B_1); ...
              (v_2)',-(v_2)'*E*(P-B_2); ...
-             (v_3)',-(v_3)'*E*(P-B_3)]
+             (v_3)',-(v_3)'*E*(P-B_3)];
         
-        M = isnan(A)
-         
-        if(det(A) == 0 || any(M(:)))
+        if(det(A) == 0 || ~isempty(isnan(A)))
           disp('Paralel singularity');
           figure(1);
+          % plot([A_1(1) A_2(1) A_3(1) A_1(1)],[A_1(2) A_2(2) A_3(2) A_1(2)], "-o", "linewidth", 3); hold on;
           plot([A_1(1) B_1(1)],[A_1(2) B_1(2)], '-o', 'linewidth', 3); hold on;
           plot([A_2(1) B_2(1)],[A_2(2) B_2(2)], '-o', 'linewidth', 3); hold on;
           plot([A_3(1) B_3(1)],[A_3(2) B_3(2)], '-o', 'linewidth', 3); hold on;
@@ -69,7 +68,7 @@ function [G Geq]=nonlcong(x)
           grid on;
           pause()
           condList = [condList 1e-16];
-          break; break;
+          break;
         else
           % serial Jacobian 
           B = eye(3);
