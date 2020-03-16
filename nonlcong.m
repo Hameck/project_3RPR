@@ -1,15 +1,7 @@
 function [G Geq]=nonlcong(x)
 
-    global n taille conditionnement;
-    
-    % Points d'interet
-    pointsList = [];
-    for i=-(taille/2):(taille/n):(taille/2)
-        for j=-(taille/2):(taille/n):(taille/2)
-            pointsList = [pointsList, [i+(x(1)*0.5);j+x(1)*sqrt(3)/4]];
-        end
-    end
-    
+    global conditionnement pointsList;
+       
     % conditionement
     condList = [];
     
