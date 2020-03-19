@@ -14,7 +14,7 @@ function [G Geq]=nonlcong(x)
     A_3 = [D*1/2 D*sqrt(3)/2]';
             
     for i=1:length(pointsList)
-      for phi=-pi/6:pi/36:pi/6   
+      for phi=-pi/6:pi/36:pi/6   %  todo: Global 
         % end-effector position
         x = pointsList(1,i);
         y = pointsList(2,i);
