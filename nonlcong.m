@@ -1,6 +1,6 @@
 function [G Geq]=nonlcong(x)
 
-    global conditionnement pointsList;
+    global conditionnement pointsList minPhi maxPhi maxJointLimit minJointLimit maxJointLimitEnabled minJointLimitEnabled condEnabled; % Todo check if enabled constraints
        
     % conditionement
     condList = [];
@@ -14,7 +14,7 @@ function [G Geq]=nonlcong(x)
     A_3 = [D*1/2 D*sqrt(3)/2]';
             
     for i=1:length(pointsList)
-      for phi=-pi/6:pi/36:pi/6   %  todo: Global 
+      for phi=deg2rad(minPhi):pi/36:deg2rad(maxPhi)   %  todo: number of points ? / step
         % end-effector position
         x = pointsList(1,i);
         y = pointsList(2,i);
