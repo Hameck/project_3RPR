@@ -1,5 +1,7 @@
 function [G Geq]=nonlcong(x)
 
+    clf;
+
     global conditionnement pointsList minPhi maxPhi maxJointLimit minJointLimit maxJointLimitEnabled minJointLimitEnabled condEnabled;
        
     % conditionement
@@ -22,7 +24,7 @@ function [G Geq]=nonlcong(x)
 
         % end-effector position
         x = pointsList(1,i)+D/2;
-        y = pointsList(2,i)+ D*sqrt(3)/4;
+        y = pointsList(2,i)+D*sqrt(3)/6;
         
         % inverse kinematics
 
@@ -60,35 +62,59 @@ function [G Geq]=nonlcong(x)
             M = isnan(A);
 
             if(det(A) == 0 || any(M(:)))
-              disp('Paralel singularity');
+              J = [];
+              if(det(A) == 0)
+                disp('Paralel singularity');
+              else
+                disp('any M');  
+              end
               condList = [condList 1e-16];
             else
               % serial Jacobian 
               B = eye(3);
 
               % condition
-              J = pinv(A)*B;
+              J = inv(A)*B;
               condList = [condList (conditionnement*cond(J)-1)];
             end
         end
+        
+%         figure(1);
+%         plot([A_1(1) A_2(1) A_3(1) A_1(1)],[A_1(2) A_2(2) A_3(2) A_1(2)], "--ok", "linewidth", 3); hold on;
+%         plot([A_1(1) B_1(1)],[A_1(2) B_1(2)], '-o', 'linewidth', 3); hold on;
+%         plot([A_2(1) B_2(1)],[A_2(2) B_2(2)], '-o', 'linewidth', 3); hold on;
+%         plot([A_3(1) B_3(1)],[A_3(2) B_3(2)], '-o', 'linewidth', 3); hold on;
+%         plot([B_1(1) B_2(1) B_3(1) B_1(1)],[B_1(2) B_2(2) B_3(2) B_1(2)], '-o', 'linewidth', 3); hold on;
+%         if((conditionnement*cond(J)-1)>0)
+%             plot(P(1),P(2), '-+r', 'linewidth', 2); hold on;
+%         else
+%             plot(P(1),P(2), '-+k', 'linewidth', 2); hold on;
+%         end
+        
       end
     end
+    
     if condEnabled
         G = [max(condList)];
     else
-        G = [];
+        G = [-1e-10];
     end
     if minJointLimitEnabled
         minRho = min(min_rho);
         if minRho < minJointLimit
-            G = [G 1e-16];
+            G = [G minJointLimit-minRho];
+        else
+            G = [G minJointLimit-minRho];
         end
     end
     if maxJointLimitEnabled
         maxRho = max(max_rho);
         if maxRho > maxJointLimit
-            G = [G 1e-16];
+            G = [G maxRho-maxJointLimit];
+        else
+            G = [G maxRho-maxJointLimit];
         end
     end
+    G;
     Geq = [];
 end
